@@ -2,6 +2,8 @@ package com.src.service.impl;
 
 import cn.hutool.core.codec.Base64;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.src.config.exception.BusinessException;
+import com.src.enums.ExceptionEnum;
 import com.src.model.ShortLinks;
 import com.src.mapper.ShortLinksMapper;
 import com.src.service.IShortLinksService;
@@ -48,7 +50,7 @@ public class ShortLinksServiceImpl extends ServiceImpl<ShortLinksMapper, ShortLi
             if (link.equals(links.getOriginalLink())) {
                 return host+shortLink;
             }
-            throw new Exception("短码生成异常，请再试一次！");
+            throw new BusinessException("短码生成异常，请再试一次！", ExceptionEnum.NOT_FOUND.getResultCode());
         }
 
         ShortLinks shortLinks = new ShortLinks();
@@ -67,7 +69,7 @@ public class ShortLinksServiceImpl extends ServiceImpl<ShortLinksMapper, ShortLi
         queryWrapper.eq("short_link", hasCode);
         ShortLinks links =  shortLinksMapper.selectOne(queryWrapper);
         if (links == null) {
-            throw new Exception("链接异常，请再试一次！");
+            throw new BusinessException("链接异常，请再试一次！", ExceptionEnum.NOT_FOUND.getResultCode());
         }
         resp.sendRedirect(links.getOriginalLink());
     }
