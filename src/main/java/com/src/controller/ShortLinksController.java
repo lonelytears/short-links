@@ -31,7 +31,7 @@ public class ShortLinksController {
     }
 
     @ApiModelProperty(value = "重定向跳转")
-    @GetMapping("/{hasCode}")
+    @GetMapping("/s/{hasCode}")
     public R shortLinkLocation(HttpServletResponse req, @PathVariable("hasCode") String hasCode) {
         shortLinksService.getLongLink(req,hasCode);
         return R.ok(1);

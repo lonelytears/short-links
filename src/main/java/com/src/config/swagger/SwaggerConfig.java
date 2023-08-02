@@ -32,8 +32,7 @@ public class SwaggerConfig {
                 //apis： 添加swagger接口提取范围
                 .apis(RequestHandlerSelectors.basePackage("com.src.controller"))
                 .paths(PathSelectors.any())
-                .build()
-                .pathMapping("/short");
+                .build();
 
         return docket;
     }
